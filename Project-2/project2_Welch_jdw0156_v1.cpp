@@ -1,8 +1,8 @@
 /*
  * Author: John Welch
  * ID: jdw0156
- * Filename: project2_Welch_jdw0156.cpp
- * Compile: g++ project2_Welch_jdw0156.cpp -o project2_Welch_jdw0156
+ * Filename: project2_Welch_jdw0156_v1.cpp
+ * Compile: g++ project2_Welch_jdw0156_v1.cpp -o project2_Welch_jdw0156
  * Resources: Internet for C++ syntax and Dr Li slides
  */
  
