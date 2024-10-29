@@ -1,6 +1,15 @@
+/*
+ * Author: John Welch
+ * ID: jdw0156
+ * Filename: project2_Welch_jdw0156_v3.cpp
+ * Compile: g++ project2_Welch_jdw0156_v3.cpp -o project2_Welch_jdw0156_v3
+ * Resources: Internet for C++ syntax, merge sort help, and Dr Li slides
+ */
+ 
 #include <iostream>
 #include <fstream>
 #include <vector>
+
 
 using namespace std;
 
@@ -33,10 +42,66 @@ void writeFile(float outputArray[], int outputArray_size, float mean, float medi
     } else {
         cerr << "Unable to open file";
     }
+
+    cout << "*** File " << outputFilename << " has been written to disk ***" << endl;
 }
 
-// Function to convert 2D array to 1D and bubble sort
+// Merge two sorted subarrays into a one array
+void merge(float arr[], int l, int m, int r) {
+    int numLeft = m - l + 1;
+    int numRight = r - m;
+    float L[numLeft], R[numRight];
+
+    // Copy vals to temp arrays
+    for (int i = 0; i < numLeft; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < numRight; j++)
+        R[j] = arr[m + 1 + j];
+
+    // Merge the temp arrays together
+    int i = 0, j = 0, k = l;
+    while (i < numLeft && j < numRight) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy remaining elements for left
+    while (i < numLeft) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    // Copy remaining elements for right
+    while (j < numRight) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// Recursive Merge Sort function
+void mergeSort(float arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        // Recursively sort first and second halves
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        // Merge the sorted halves
+        merge(arr, l, m, r);
+    }
+}
+
+// Convert 2D array to 1D and sort using Merge Sort
 int sort2DArray(float array[][MAX_SIZE], int arraySizes[], int numFiles, float sortedArray[], int totalNumCount) {
+    // Convert 2D array to 1D array
     int idx = 0;
     for (int i = 1; i <= numFiles; i++) {
         for (int j = 0; j < arraySizes[i]; j++) {
@@ -44,18 +109,11 @@ int sort2DArray(float array[][MAX_SIZE], int arraySizes[], int numFiles, float s
         }
     }
 
-    // Bubble Sorting 1D Array
-    for (int i = 0; i < totalNumCount - 1; i++) {
-        for (int j = 0; j < totalNumCount - i - 1; j++) {
-            if (sortedArray[j] > sortedArray[j + 1]) {
-                float temp = sortedArray[j];
-                sortedArray[j] = sortedArray[j + 1];
-                sortedArray[j + 1] = temp;
-            }
-        }
-    }
+    // Sort 1D array using mergesort
+    mergeSort(sortedArray, 0, totalNumCount - 1);
     return totalNumCount;
 }
+
 
 // Function to find Mean of the array
 float findMean(float array[], int size) {
