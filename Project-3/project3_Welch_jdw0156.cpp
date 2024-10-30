@@ -2,7 +2,7 @@
  * Author: John Welch
  * ID: jdw0156
  * Filename: project2_Welch_jdw0156_v3.cpp
- * Compile: g++ project2_Welch_jdw0156_v3.cpp -o project2_Welch_jdw0156_v3
+ * Compile: g++ project3_Welch_jdw0156.cpp -o project3_Welch_jdw0156
  * Resources: Internet for C++ syntax, merge sort help, and Dr Li slides
  */
  
