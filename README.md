@@ -1,4 +1,4 @@
 # COMP-2710
-Software Construction
-Dr. Xuechao Li
+Software Construction \n
+Dr. Xuechao Li \n
 Auburn University
