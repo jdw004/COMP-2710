@@ -3,7 +3,7 @@
 - Dr. Xuechao Li<br />
 - Auburn University
 
-Project 1 - Flow of Control
-Project 2 - Test Drivers
-Project 3 - File I/O
-Project 4 - Linked Lists
+Project 1 - Flow of Control<br />
+Project 2 - Test Drivers<br />
+Project 3 - File I/O<br />
+Project 4 - Linked Lists<br />
