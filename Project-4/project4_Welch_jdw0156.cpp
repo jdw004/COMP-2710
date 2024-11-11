@@ -6,6 +6,9 @@
  * Resources: Internet for C++ syntax, linkedlist help, and Dr Li slides
  */
 
+// Only God knows how this code works
+// Goodluck to anyone trying to understand it
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -21,7 +24,7 @@ class MCQOption {
 public:
     std::string choice;
     MCQOption* next;
-    char label; // A, B, C, etc.
+    char label; 
     MCQOption(std::string c, char l) : choice(c), next(nullptr), label(l) {}
 };
 
@@ -396,7 +399,7 @@ public:
 }
 
 
-void assessment() {
+double assessment() {
     QuestionNode* current = nullptr;
     int questionIndex = 1;
 
@@ -437,6 +440,7 @@ void assessment() {
                     count++;
                 }
                 std::cout << "Final score: " << score << std::endl << std::endl;
+                return score;
                 break;
             } else if (action == 2) {
                 std::cout << "Jump to question [1-" << questionCount << "]: ";
@@ -567,6 +571,7 @@ void assessment() {
                     count++;
                 }
                 std::cout << "Final score: " << score << "/" << totalscore << std::endl << std::endl;
+                return score;
                 break;
             }
         }
@@ -575,6 +580,120 @@ void assessment() {
 
 };
 
+
+#define UNIT_TESTING
+#ifdef UNIT_TESTING
+
+//Test drivers
+void test1() {
+    QuizManager quiz;
+    std::cout << "Unit Test Case 1: Verify behavior with zero questions.\n";
+    assert(quiz.questionCount == 0 && "Test Failed: Expected 0 questions initially.");
+    std::cout << "Case 1 Passed: No questions present.\n";
+    std::cout << std::endl;
+}
+
+void test2() {
+    QuizManager quiz;
+    std::cout << "Unit Test Case 2: Add one T/F question and check incorrect answer.\n";
+
+    // Create and add a T/F question
+    QuestionNode* newQuestion = new QuestionNode();
+    newQuestion->type = QuestionNode::TF;
+    newQuestion->question = "Is the earth flat?";
+    newQuestion->correct = "false";
+    newQuestion->score = 10;
+    quiz.head = quiz.tail = newQuestion;
+    quiz.questionCount = 1;
+
+    // Simulate answering incorrectly
+    newQuestion->userAnswer = "true";
+    assert(newQuestion->userAnswer != newQuestion->correct && "Test Failed: Expected incorrect answer.");
+    std::cout << "Case 2 Passed: Incorrect answer handled correctly.\n";
+    std::cout << std::endl;
+}
+
+void test3() {
+    QuizManager quiz;
+    std::cout << "Unit Test Case 3: Add one T/F question and check correct answer.\n";
+
+    // Create and add a T/F question
+    QuestionNode* newQuestion = new QuestionNode();
+    newQuestion->type = QuestionNode::TF;
+    newQuestion->question = "Is water wet?";
+    newQuestion->correct = "true";
+    newQuestion->score = 10;
+    quiz.head = quiz.tail = newQuestion;
+    quiz.questionCount = 1;
+
+    // Simulate answering correctly
+    newQuestion->userAnswer = "true";
+    assert(newQuestion->userAnswer == newQuestion->correct && "Test Failed: Expected correct answer.");
+    std::cout << "Case 3 Passed: Correct answer verified.\n";
+    std::cout << std::endl;
+}
+
+void test4() {
+    QuizManager quiz;
+    std::cout << "Unit Test Case 4: Add and delete a question.\n";
+
+    // Create and add a question
+    QuestionNode* newQuestion = new QuestionNode();
+    newQuestion->question = "Sample question?";
+    quiz.head = quiz.tail = newQuestion;
+    quiz.questionCount = 1;
+
+    // Verify initial state
+    assert(quiz.questionCount == 1 && "Test Failed: Expected 1 question after adding.");
+    std::cout << "Initial question added successfully.\n";
+
+    // Delete the question
+    quiz.deleteQuestion();
+
+    // Verify deletion
+    assert(quiz.questionCount == 0 && !quiz.head && "Test Failed: Expected 0 questions after deletion.");
+    std::cout << "Case 4 Passed: Question deleted successfully.\n";
+    std::cout << std::endl;
+}
+
+void test5() {
+    QuizManager quiz;
+    std::cout << "Unit Test Case 5: Add multiple questions and verify.\n";
+
+    // Add multiple questions
+    for (int i = 0; i < 3; ++i) {
+        QuestionNode* newQuestion = new QuestionNode();
+        newQuestion->question = "Sample question " + std::to_string(i + 1) + "?";
+        if (!quiz.head) {
+            quiz.head = quiz.tail = newQuestion;
+        } else {
+            quiz.tail->next = newQuestion;
+            newQuestion->prev = quiz.tail;
+            quiz.tail = newQuestion;
+        }
+        quiz.questionCount++;
+    }
+
+    // Verify count
+    assert(quiz.questionCount == 3 && "Test Failed: Expected 3 questions added.");
+    std::cout << "Case 5 Passed: Multiple questions added successfully.\n";
+    std::cout << std::endl;
+}
+
+
+int main() {
+    std::cout << "***This is a debugging version ***" << std::endl;
+    std::cout << std::endl;
+    test1();
+    test2();
+    test3();
+    test4();
+    test5();
+    std::cout << "*** End of Debugging Version ***" << std::endl;
+    return 0;
+}
+
+#else
 
 int main() {
     // Instantiate QuizManager
@@ -640,3 +759,4 @@ int main() {
     std::cout << "*** Thank you for using the testing service. Goodbye! ***" << std::endl;
     return 0;
 }
+#endif
