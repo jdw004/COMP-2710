@@ -6,7 +6,7 @@
  * Resources: Internet for C++ syntax, linkedlist help, and Dr Li slides
  */
 
-// Only God knows how this code works
+// Only God knows how this code works at this point
 // Goodluck to anyone trying to understand it
 
 #include <iostream>
