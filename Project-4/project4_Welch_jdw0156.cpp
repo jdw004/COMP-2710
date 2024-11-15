@@ -12,7 +12,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <cassert>
+#include <limits>
 #include <stdexcept>
 
 // Forward declarations
