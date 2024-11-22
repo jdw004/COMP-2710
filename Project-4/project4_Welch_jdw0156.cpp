@@ -7,7 +7,6 @@
  */
 
 // Only God knows how this code works at this point
-// Goodluck to anyone trying to understand it
 
 #include <iostream>
 #include <fstream>
